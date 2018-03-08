@@ -4,14 +4,14 @@ contract ERC20
     string public name;
     string public symbol;
     uint8 public decimals;
-    uint256 totalsupply;
+    uint256 public totalsupply;
     address owner;
     event Transfer(address from,address to,uint256 value);
     function ERC20()
     {
-        name = "ANYBODYCAN";
-        symbol = "ABC";
-        decimals = 18;
+        name = "CNYBODYCAN";
+        symbol = "CAB";
+        decimals = 0;
         totalsupply=100000;
         owner=msg.sender;
     }
