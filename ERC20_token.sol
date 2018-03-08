@@ -1,15 +1,17 @@
 pragma solidity ^0.4.0;
 contract ERC20
 {
-    string name;
-    string symbol;
-    uint8 decimals;
+    string public name;
+    string public symbol;
+    uint8 public decimals;
+    uint256 totalsupply;
     address owner;
     function ERC20()
     {
         name = "ANYBODYCAN";
         symbol = "ABC";
         decimals = 18;
+        totalsupply=100000;
         owner=msg.sender;
     }
     mapping(address=>uint256)balance;
@@ -28,9 +30,8 @@ contract ERC20
         require(balance[_from]<=_value);
         _;
     }
-    function totalSupply() private returns(uint256)
+    function totalSupply() returns(uint256)
     {
-        uint256 totalsupply=100000;
         return totalsupply;
     }
     function transfer(address to,uint256 value) check_balance(value) returns(bool)
