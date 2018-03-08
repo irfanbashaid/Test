@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html> 
+<head>
+<script src="web3.min.js"></script>
+<meta charset="utf-8">
+<title>Token sale</title>
+</head>
+<body bgcolor=Snow>
+ <center>
+  <h1>Token sale</h1>
+
+  <p><h2>MINT</h2></p>
+  <input id="mint_am" type="text" placeholder="amount"/><br>
+  <input type="button" onclick="mint()" value="Mint"/><br>
+
+  <p><h2>Balance</h2></p>
+  <input id="acc_holder" type="text" placeholder="Acc_holder_address"/><br>
+  <input type="button" onclick="balance()" value="balance"><br>
+
+  <p><h2>Owner Transfer</h2></p>
+  <input id="transferto" type="text" placeholder="Receiver address"/><br>
+  <input id="t_amount" type="text" placeholder="Amount"/><br>
+  <input type="button" onclick="transfer()" value="Transfer"><br>
+
+  <p><h2>Others Transfer</h2></p>
+  <input id="o_ad" type="text" placeholder="sender address"/><br>
+  <input id="rec_ad" type="text" placeholder="Receiver address"/><br>
+  <input id="o_transfer_amount" type="text" placeholder="Amount"/><br>
+  <input type="button" onclick="others_transfer()" value="Transfer">
+
+   </center>
+</body>
+<script>
+	web3.eth.defaultAccount = web3.eth.accounts[0];
+        var wallet= web3.eth.contract([
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "acc",
+				"type": "address"
+			}
+		],
+		"name": "balanceOf",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "value_to_mint",
+				"type": "uint256"
+			}
+		],
+		"name": "mint",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "transferFrom",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	}
+]);
+	var chainflux= wallet.at('0x99aa539464c2561a7c1027a3ee5dfee028a99aa5');
+	
+	if(!web3.isConnected()) {
+  	console.log("Ok....");
+        } 
+	else {
+        console.log("no");
+      	}
+      	
+	web3.version.getNetwork((err, netId) => {
+            switch (netId) {
+              case "1":
+                console.log('This is mainnet')
+                break
+              case "2":
+                console.log('This is the deprecated Morden test network.')
+                break
+              case "3":
+                console.log('This is the ropsten test network.')
+                break
+              case "4":
+                console.log('This is the Rinkeby test network.')
+                break
+              case "42":
+                console.log('This is the Kovan test network.')
+                break
+              default:
+                console.log('This is an unknown network.')
+            }
+        })
+	function deposit(){
+		var a=document.getElementById("d_am").value;
+		chainflux.mint(a,function(error,result){
+            	if (!error) 
+		{
+              	alert(result);
+                }   
+		else 
+		{
+             	alert("error");
+		}
+	    });
+	}
+	function balance(){
+		var b=document.getElementById("acc_holder").value;
+		chainflux.balanceOf(b,function(error,result){
+            	if (!error) 
+		{
+              	alert(result);
+                }   
+		else 
+		{
+             	alert("error");
+		}
+	    });
+	}
+	function transfer(){
+		var c=document.getElementById("transferto").value;
+		var d=document.getElementById("t_amount").value;
+		chainflux.transfer(c,d,function(error,result){
+            	if (!error) 
+		{
+              	alert(result);
+                }   
+		else 
+		{
+             	alert("error");
+		}
+	    });
+	}	
+	function others_transfer(){
+		var g=document.getElementById("o_ad").value;
+		var h=document.getElementById("rec_ad").value;	
+		var i=document.getElementById("o_transfer_amount").value;
+		chainflux.transferFrom(g,h,i,function(error,result){
+            	if (!error) 
+		{
+              	alert(result);
+                }   
+		else 
+		{
+             	alert("error");
+		}
+	    });
+	}
+	
+</script>
+</html> 
