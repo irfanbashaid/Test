@@ -6,6 +6,7 @@ contract ERC20
     uint8 public decimals;
     uint256 totalsupply;
     address owner;
+    event Transfer(address from,address to,uint256 value);
     function ERC20()
     {
         name = "ANYBODYCAN";
@@ -38,6 +39,7 @@ contract ERC20
     {
         balance[to]+=value;
         balance[msg.sender]-=value;
+        Transfer(msg.sender,to,value);
         return true;
     }
     function mint(uint256 value_to_mint) check_mint(value_to_mint) returns(uint256)
@@ -53,6 +55,7 @@ contract ERC20
     {
         balance[from]-=value;
         balance[to]+=value;
+        Transfer(from,to,value);
         return true;
     }
 }
