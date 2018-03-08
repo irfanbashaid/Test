@@ -33,14 +33,16 @@ contract ERC20
         uint256 totalsupply=100000;
         return totalsupply;
     }
-    function transfer(address to,uint256 value) check_balance(value)
+    function transfer(address to,uint256 value) check_balance(value) returns(bool)
     {
         balance[to]+=value;
         balance[msg.sender]-=value;
+        return true;
     }
-    function mint(uint256 value_to_mint) check_mint(value_to_mint)
+    function mint(uint256 value_to_mint) check_mint(value_to_mint) returns(uint256)
     {
         balance[msg.sender]+=value_to_mint;
+        return balance[msg.sender];
     }
     function balanceOf(address acc) returns(uint256)
     {
