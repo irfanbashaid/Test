@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html> 
 <head>
-<script src="web3.min.js"></script>
 <meta charset="utf-8">
 <title>Token sale</title>
 </head>
@@ -61,7 +60,12 @@
 			}
 		],
 		"name": "mint",
-		"outputs": [],
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -79,7 +83,12 @@
 			}
 		],
 		"name": "transfer",
-		"outputs": [],
+		"outputs": [
+			{
+				"name": "",
+				"type": "bool"
+			}
+		],
 		"payable": false,
 		"stateMutability": "nonpayable",
 		"type": "function"
